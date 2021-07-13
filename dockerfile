@@ -1,9 +1,9 @@
-from ubuntu
+from mcr.microsoft.com/dotnet/runtime:5.0
   
-RUN apt-get update &&apt-get install apt-transport-https -y &&apt-get update &&apt-get install wget -y &&wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb &&dpkg -i packages-microsoft-prod.deb &&apt-get update &&apt-get install dotnet-sdk-5.0 -y &&apt-get install unzip -y
-WORKDIR .
+RUN apt-get update &&apt-get install unzip
 copy ./webapp.zip ./webapp.zip
 RUN unzip ./webapp.zip
 RUN rm ./webapp.zip
+WORKDIR webapp
 ENTRYPOINT dotnet /webapp/WebApp.dll --urls "http://0.0.0.0:81" &
 
